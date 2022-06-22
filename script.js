@@ -39,6 +39,23 @@ function displayDigit(e) {
 
 digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach(button => {
-    button.addEventListener("click", displayDigit);
+    button.addEventListener("click", e => {
+        calculator.lastPressed = "digit";
+        console.log(calculator.lastPressed);
+        displayDigit(e);
+    });
 });
 
+function displayOperator(e) {
+    const display = document.querySelector(".main-display");
+    display.textContent += e.target.textContent;
+}
+
+operatorButtons = document.querySelectorAll(".operator");
+operatorButtons.forEach(button => {
+    button.addEventListener("click", e => {
+        calculator.lastPressed = "operator";
+        console.log(calculator.lastPressed);
+        displayOperator(e);
+    });
+});
