@@ -28,6 +28,10 @@ function operate(a, b, operator) {
     }
 }
 
+const calculator = {
+    lastPressed: null
+}
+
 function displayDigit(e) {
     const display = document.querySelector(".main-display");
     display.textContent += e.target.textContent;    
@@ -37,3 +41,4 @@ digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach(button => {
     button.addEventListener("click", displayDigit);
 });
+
