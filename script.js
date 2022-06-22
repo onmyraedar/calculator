@@ -54,8 +54,10 @@ function displayOperator(e) {
 operatorButtons = document.querySelectorAll(".operator");
 operatorButtons.forEach(button => {
     button.addEventListener("click", e => {
+        if (calculator.lastPressed === "digit") {
+            displayOperator(e);
+        }
         calculator.lastPressed = "operator";
         console.log(calculator.lastPressed);
-        displayOperator(e);
     });
 });
