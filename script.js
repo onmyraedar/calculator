@@ -40,24 +40,25 @@ function displayDigit(e) {
 digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach(button => {
     button.addEventListener("click", e => {
-        calculator.lastPressed = "digit";
-        console.log(calculator.lastPressed);
         displayDigit(e);
+        calculator.lastPressed = "digit";
     });
 });
 
 function displayOperator(e) {
     const display = document.querySelector(".main-display");
-    display.textContent += e.target.textContent;
+    if (calculator.lastPressed === "digit") {
+        display.textContent += e.target.textContent;
+    } else if (calculator.lastPressed === "operator") {
+        display.textContent = display.textContent.slice(0, -1);
+        display.textContent += e.target.textContent;
+    }
 }
 
 operatorButtons = document.querySelectorAll(".operator");
 operatorButtons.forEach(button => {
     button.addEventListener("click", e => {
-        if (calculator.lastPressed === "digit") {
-            displayOperator(e);
-        }
+        displayOperator(e);
         calculator.lastPressed = "operator";
-        console.log(calculator.lastPressed);
     });
 });
