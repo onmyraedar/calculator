@@ -15,13 +15,13 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
-    if (operator === "plusBtn") {
+    if (operator === "+") {
         return add(a, b);
-    } else if (operator === "minusBtn") {
+    } else if (operator === "-") {
         return subtract(a, b);
-    } else if (operator === "multiplyBtn") {
+    } else if (operator === "*") {
         return multiply(a, b);
-    } else if (operator === "divideBtn") {
+    } else if (operator === "/") {
         return divide(a, b);
     } else {
         return "Error";
@@ -90,4 +90,17 @@ operatorButtons.forEach(button => {
         saveOperator(e);
         calculator.lastPressed = "operator";
     });
+});
+
+function displayResult(e) {
+    const display = document.querySelector(".main-display");
+    const smallDisplay = document.querySelector(".small-display");
+    smallDisplay.textContent = `${calculator.firstNumber}${calculator.operator}${calculator.secondNumber}=`;
+    const result = operate(parseInt(calculator.firstNumber), parseInt(calculator.secondNumber), calculator.operator);
+    display.textContent = result;
+}
+
+equalButton = document.querySelector(".equal-sign");
+equalButton.addEventListener("click", e => {
+    displayResult(e);
 });
