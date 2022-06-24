@@ -29,7 +29,18 @@ function operate(a, b, operator) {
 }
 
 const calculator = {
-    lastPressed: null
+    lastPressed: null,
+    currentNumber: "first",
+    firstNumber: "",
+    operator: "",
+    secondNumber: "",
+    updateCurrentNumber() {
+        if (this.currentNumber === "first") {
+            this.currentNumber = "second";
+        } else if (this.currentNumber === "second") {
+            this.currentNumber = "first";
+        }
+    }
 }
 
 function displayDigit(e) {
@@ -37,10 +48,23 @@ function displayDigit(e) {
     display.textContent += e.target.textContent;    
 }
 
+function saveDigit(e) {
+    if (calculator.currentNumber === "first") {
+        calculator.firstNumber += e.target.textContent;
+    } else if (calculator.currentNumber === "second") {
+        calculator.secondNumber += e.target.textContent;
+    }
+}
+
 digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach(button => {
     button.addEventListener("click", e => {
         displayDigit(e);
+        if (calculator.lastPressed === "operator") {
+            calculator.updateCurrentNumber();
+        }
+        saveDigit(e);
+        console.log(calculator);
         calculator.lastPressed = "digit";
     });
 });
@@ -55,10 +79,15 @@ function displayOperator(e) {
     }
 }
 
+function saveOperator(e) {
+    calculator.operator = e.target.textContent;
+}
+
 operatorButtons = document.querySelectorAll(".operator");
 operatorButtons.forEach(button => {
     button.addEventListener("click", e => {
         displayOperator(e);
+        saveOperator(e);
         calculator.lastPressed = "operator";
     });
 });
