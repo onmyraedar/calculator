@@ -59,10 +59,13 @@ function saveDigit(e) {
 digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach(button => {
     button.addEventListener("click", e => {
-        displayDigit(e);
         if (calculator.lastPressed === "operator") {
             calculator.updateCurrentNumber();
+        } else if (calculator.lastPressed === "equal-sign") {
+            resetCalculator();
+            resetDisplay();
         }
+        displayDigit(e);
         saveDigit(e);
         console.log(calculator);
         calculator.lastPressed = "digit";
@@ -103,4 +106,19 @@ function displayResult(e) {
 equalButton = document.querySelector(".equal-sign");
 equalButton.addEventListener("click", e => {
     displayResult(e);
+    calculator.lastPressed = "equal-sign";
 });
+
+function resetCalculator() {
+    calculator.firstNumber = "";
+    calculator.operator = "";
+    calculator.secondNumber = "";
+    calculator.updateCurrentNumber();
+}
+
+function resetDisplay() {
+    const display = document.querySelector(".main-display");
+    const smallDisplay = document.querySelector(".small-display");
+    display.textContent = "0";
+    smallDisplay.textContent = "0";
+}
