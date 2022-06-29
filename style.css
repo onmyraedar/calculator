@@ -10,7 +10,7 @@ body {
 
 button {
     height: 50px;
-    width: 50px;
+    width: 65px;
     border-style: none;
     border-radius: 15px;
     background-color: #fdf5ff;
@@ -31,13 +31,19 @@ button {
 }
 
 .display-container {
-    width: 80%;
+    box-sizing: border-box;
+    width: 290px;
     margin-top: 20px;
-    margin-bottom: 10px;
-    padding: 0px 20px;
+    margin-bottom: 20px;
+    padding: 0px 10px;
     border-radius: 15px;
     background-color: #fdf5ff;
     text-align: right;
+}
+
+.main-display {
+    font-size: 32px;
+    font-weight: 600;
 }
 
 .btn-row {
@@ -48,5 +54,11 @@ button {
 
 .backspace-btn, 
 .clear-btn {
-    width: 110px;
+    width: 140px;
+}
+
+.backspace-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
