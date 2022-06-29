@@ -34,11 +34,10 @@ const calculator = {
     firstNumber: "",
     operator: "",
     secondNumber: "",
-    updateCurrentNumber() {
-        if (this.currentNumber === "first") {
-            this.currentNumber = "second";
-        } else if (this.currentNumber === "second") {
-            this.currentNumber = "first";
+    lastResult: null,
+    updateCurrentNumber(number) {
+        if (this.currentNumber !== number) {
+            this.currentNumber = number;
         }
     }
 }
@@ -60,7 +59,7 @@ digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach(button => {
     button.addEventListener("click", e => {
         if (calculator.lastPressed === "operator") {
-            calculator.updateCurrentNumber();
+            calculator.updateCurrentNumber("second");
         } else if (calculator.lastPressed === "equal-sign") {
             resetCalculator();
             resetDisplay();
@@ -89,8 +88,12 @@ function saveOperator(e) {
 operatorButtons = document.querySelectorAll(".operator");
 operatorButtons.forEach(button => {
     button.addEventListener("click", e => {
-        displayOperator(e);
-        saveOperator(e);
+        if (calculator.lastPressed === "equal-sign") {
+            continueCalculation(e);
+        } else {
+            displayOperator(e);
+            saveOperator(e);
+        }
         calculator.lastPressed = "operator";
     });
 });
@@ -100,6 +103,7 @@ function displayResult(e) {
     const smallDisplay = document.querySelector(".small-display");
     smallDisplay.textContent = `${calculator.firstNumber}${calculator.operator}${calculator.secondNumber}=`;
     const result = operate(parseInt(calculator.firstNumber), parseInt(calculator.secondNumber), calculator.operator);
+    calculator.lastResult = result;
     display.textContent = result;
 }
 
@@ -109,11 +113,20 @@ equalButton.addEventListener("click", e => {
     calculator.lastPressed = "equal-sign";
 });
 
+function continueCalculation(e) {
+    calculator.firstNumber = calculator.lastResult;
+    calculator.secondNumber = "";
+    calculator.updateCurrentNumber("second");
+    saveOperator(e);
+    const display = document.querySelector(".main-display");
+    display.textContent = `${calculator.firstNumber}${calculator.operator}`
+}
+
 function resetCalculator() {
     calculator.firstNumber = "";
     calculator.operator = "";
     calculator.secondNumber = "";
-    calculator.updateCurrentNumber();
+    calculator.updateCurrentNumber("first");
 }
 
 function resetDisplay() {
