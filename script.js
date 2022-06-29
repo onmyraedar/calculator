@@ -102,7 +102,7 @@ function displayResult(e) {
     const display = document.querySelector(".main-display");
     const smallDisplay = document.querySelector(".small-display");
     smallDisplay.textContent = `${calculator.firstNumber}${calculator.operator}${calculator.secondNumber}=`;
-    const result = operate(parseInt(calculator.firstNumber), parseInt(calculator.secondNumber), calculator.operator);
+    const result = operate(parseFloat(calculator.firstNumber), parseFloat(calculator.secondNumber), calculator.operator);
     calculator.lastResult = result;
     display.textContent = result;
 }
