@@ -113,6 +113,12 @@ equalButton.addEventListener("click", e => {
     calculator.lastPressed = "equal-sign";
 });
 
+clearBtn = document.querySelector(".clear-btn");
+clearBtn.addEventListener("click", e => {
+    resetCalculator();
+    resetDisplay();
+});
+
 function continueCalculation(e) {
     calculator.firstNumber = calculator.lastResult;
     calculator.secondNumber = "";
